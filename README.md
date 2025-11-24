@@ -3,7 +3,11 @@
 # ITCS333 Course Page
 
 ## The names and student IDs of all team members.
-**1- Abdulrahman Abdo Ahmed - 202204625**
+| Student Name              | Student ID |
+|---------------------------|------------|
+| Abdulrahman Abdo Ahmed    | 202204625  |
 ## A table indicating which student was responsible for which task.
-
+Task| Student Name              | Student ID |
+----|---------------------------|------------|
+Task 1: Homepage, Admin Portal & User Management| Abdulrahman Abdo Ahmed    | 202204625  |
 ## A link to your live, hosted application on Replit.
