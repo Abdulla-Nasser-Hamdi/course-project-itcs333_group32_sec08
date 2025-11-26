@@ -35,12 +35,27 @@
  * Response Format: JSON
  */
 
+$host = "localhost"; 
+$user = "root";  
+$password = "";  
+$database = "project333";
+
+try { 
+    $conn = new PDO("mysql:host=$host;dbname=$database", $user, $password); 
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+    echo "Connection works!<br/>";  // Output: Connection works! 
+
+} catch (PDOException $e) { 
+die("Connection failed: " . $e->getMessage()); 
+// Output if fail: Connection failed: [error message] 
+}
+
 // ============================================================================
 // HEADERS AND CORS CONFIGURATION
 // ============================================================================
 
 // TODO: Set Content-Type header to application/json
-
+ header("Content-Type: application/json"); 
 
 // TODO: Set CORS headers to allow cross-origin requests
 
