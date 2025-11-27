@@ -18,12 +18,13 @@
 // the HTML document is parsed before this script runs.
 
 // TODO: Select the login form. (You'll need to add id="login-form" to the <form> in your HTML).
-
 // TODO: Select the email input element by its ID.
-
 // TODO: Select the password input element by its ID.
-
 // TODO: Select the message container element by its ID.
+const loginForm = document.getElementById("login-form");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const messageContainer = document.getElementById("message-container");
 
 // --- Functions ---
 
@@ -40,6 +41,8 @@
  */
 function displayMessage(message, type) {
   // ... your implementation here ...
+  messageContainer.textContent = message;
+  messageContainer.className = type;
 }
 
 /**
@@ -55,7 +58,8 @@ function displayMessage(message, type) {
  * A simple regex for this purpose is: /\S+@\S+\.\S+/
  */
 function isValidEmail(email) {
-  // ... your implementation here ...
+  const regex = /\S+@\S+\.\S+/;
+  return regex.test(email);
 }
 
 /**
@@ -69,7 +73,7 @@ function isValidEmail(email) {
  * 3. Return `false` if the password is not valid.
  */
 function isValidPassword(password) {
-  // ... your implementation here ...
+  return password.length >= 8;
 }
 
 /**
@@ -88,6 +92,17 @@ function isValidPassword(password) {
  */
 function handleLogin(event) {
   // ... your implementation here ...
+  event.preventDefault()
+  let email = emailInput.value.trim()
+  let password = passwordInput.value.trim()
+  if(isValidEmail(email) == false){
+   displayMessage("Invalid email format.", "error")
+   return
+  }
+  if(isValidPassword(password) == false){
+    displayMessage("Password must be at least 8 characters","error")
+    return
+  }
 }
 
 /**
