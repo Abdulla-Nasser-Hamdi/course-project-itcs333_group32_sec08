@@ -103,6 +103,9 @@ function handleLogin(event) {
     displayMessage("Password must be at least 8 characters","error")
     return
   }
+  displayMessage("Login successful!", "success")
+  emailInput.value=""
+  passwordInput.value=""
 }
 
 /**
@@ -115,6 +118,9 @@ function handleLogin(event) {
  */
 function setupLoginForm() {
   // ... your implementation here ...
+  if(loginForm){
+    loginForm.addEventListener("submit",handleLogin)
+  }
 }
 
 // --- Initial Page Load ---
