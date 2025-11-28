@@ -1,26 +1,21 @@
 <?php
 
-// ================= HEADERS =================
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
-// Handle preflight request
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(200);
     exit;
 }
 
-// ================= DATABASE =================
 require_once __DIR__ . "/../../Database.php";
 $db = (new Database())->getConnection();
 
-// ================= REQUEST DATA =================
 $method = $_SERVER["REQUEST_METHOD"];
 $input  = json_decode(file_get_contents("php://input"), true) ?? [];
 
-// ================= HELPERS =================
 function sendResponse($data, $status = 200) {
     http_response_code($status);
     echo json_encode($data);
@@ -35,9 +30,6 @@ function sanitizeInput($data) {
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
-// ================= GET STUDENTS (LIST) =================
-// Uses users table, only is_admin = 0 (students)
-// Adds student_id = part before '@' in email
 function getStudents($db) {
     $search = $_GET["search"] ?? "";
 
@@ -69,7 +61,6 @@ function getStudents($db) {
     sendResponse(["success" => true, "data" => $students]);
 }
 
-// ================= GET ONE STUDENT =================
 function getStudentById($db, $id) {
     $stmt = $db->prepare(
         "SELECT 
@@ -90,7 +81,6 @@ function getStudentById($db, $id) {
     sendResponse(["success" => true, "data" => $student]);
 }
 
-// ================= CREATE STUDENT =================
 function createStudent($db, $data) {
     if (
         empty($data["student_id"]) ||
@@ -105,7 +95,6 @@ function createStudent($db, $data) {
         sendResponse(["success" => false, "message" => "Invalid email"], 400);
     }
 
-    // Make sure student_id matches part before '@'
     $localPart = strstr($data["email"], '@', true);
     if ($localPart !== $data["student_id"]) {
         sendResponse([
@@ -142,7 +131,7 @@ function createStudent($db, $data) {
         ], 201);
 
     } catch (PDOException $e) {
-        // 23000 = unique constraint violation
+
         if ($e->getCode() === "23000") {
             sendResponse(["success" => false, "message" => "User with this email already exists"], 409);
         }
@@ -150,7 +139,7 @@ function createStudent($db, $data) {
     }
 }
 
-// ================= UPDATE STUDENT =================
+
 function updateStudent($db, $id, $data) {
     if (empty($data["name"]) || empty($data["email"])) {
         sendResponse(["success" => false, "message" => "Name and email are required"], 400);
@@ -187,7 +176,7 @@ function updateStudent($db, $id, $data) {
     }
 }
 
-// ================= DELETE STUDENT =================
+
 function deleteStudent($db, $id) {
     if (!$id) {
         sendResponse(["success" => false, "message" => "User id required"], 400);
@@ -203,8 +192,6 @@ function deleteStudent($db, $id) {
     sendResponse(["success" => true, "message" => "Student deleted"]);
 }
 
-// ================= CHANGE PASSWORD =================
-// Uses email to identify the user
 function changePassword($db, $data) {
     if (
         empty($data["email"]) ||
@@ -237,7 +224,6 @@ function changePassword($db, $data) {
     sendResponse(["success" => true, "message" => "Password updated"]);
 }
 
-// ================= ROUTER =================
 try {
     switch ($method) {
         case "GET":

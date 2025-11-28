@@ -1,19 +1,18 @@
 <?php
 session_start();
 
-// ===== HEADERS (JSON + CORS) =====
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
-// Handle preflight request
+
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(200);
     exit;
 }
 
-// Only allow POST for login
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode([
         'success' => false,
@@ -22,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
-// ===== READ JSON BODY =====
 $rawData = file_get_contents("php://input");
 $data = json_decode($rawData, true) ?? [];
 
@@ -37,7 +35,6 @@ if (!isset($data['email']) || !isset($data['password'])) {
 $email    = trim($data['email']);
 $password = $data['password'];
 
-// ===== VALIDATION =====
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode([
         'success' => false,
@@ -54,8 +51,6 @@ if (strlen($password) < 8) {
     exit;
 }
 
-// ===== DATABASE =====
-// Use the SAME Database.php you used in admin/api
 require_once __DIR__ . "/../../Database.php";
 
 try {
@@ -70,7 +65,7 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($password, $user['password'])) {
-        // Login OK – set session variables
+
         $_SESSION['user_id']    = $user['id'];
         $_SESSION['user_name']  = $user['name'];
         $_SESSION['user_email'] = $user['email'];
@@ -90,7 +85,7 @@ try {
         exit;
     }
 
-    // Wrong email or password
+
     echo json_encode([
         'success' => false,
         'message' => 'Invalid email or password'

@@ -3,11 +3,11 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const messageContainer = document.getElementById("message-container");
 
-// --- Helpers ---
+
 
 function displayMessage(message, type) {
   messageContainer.textContent = message;
-  messageContainer.className = type; // e.g., "success" or "error"
+  messageContainer.className = type; 
 }
 
 function isValidEmail(email) {
@@ -19,7 +19,6 @@ function isValidPassword(password) {
   return password.length >= 8;
 }
 
-// --- Main submit handler (now talks to PHP) ---
 
 async function handleLogin(event) {
   event.preventDefault();
@@ -27,7 +26,7 @@ async function handleLogin(event) {
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
 
-  // Client-side validation
+
   if (!isValidEmail(email)) {
     displayMessage("Invalid email format.", "error");
     return;
@@ -39,7 +38,6 @@ async function handleLogin(event) {
   }
 
   try {
-    // Call the PHP API
     const response = await fetch("api/index.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -53,10 +51,8 @@ async function handleLogin(event) {
       return;
     }
 
-    // Login OK
     displayMessage("Login successful!", "success");
 
-    // Optional redirect logic:
   if (result.user && result.user.is_admin === 1) {
   window.location.href = "../admin/manage_users.html";
  } else {
@@ -77,5 +73,4 @@ function setupLoginForm() {
   }
 }
 
-// Initialize
 setupLoginForm();

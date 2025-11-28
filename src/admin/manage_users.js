@@ -1,4 +1,4 @@
-const API_BASE_URL = "api/index.php"; // relative to /admin/
+const API_BASE_URL = "api/index.php"; 
 
 let students = [];
 
@@ -8,7 +8,6 @@ const changePasswordForm = document.getElementById("password-form");
 const searchInput = document.getElementById("search-input");
 const tableHeaders = document.querySelectorAll("#student-table thead th");
 
-// --- Helpers ---
 
 function createStudentRow(student) {
   const tr = document.createElement("tr");
@@ -32,7 +31,7 @@ function renderTable(studentArray) {
   });
 }
 
-// --- Password change ---
+
 
 async function handleChangePassword(event) {
   event.preventDefault();
@@ -87,7 +86,7 @@ async function handleChangePassword(event) {
   }
 }
 
-// --- Add student (CREATE) ---
+
 
 async function handleAddStudent(event) {
   event.preventDefault();
@@ -150,12 +149,11 @@ async function handleAddStudent(event) {
   }
 }
 
-// --- Edit / Delete student (UPDATE / DELETE) ---
+
 
 async function handleTableClick(event) {
   const target = event.target;
 
-  // DELETE
   if (target.classList.contains("delete-btn")) {
     const dbId = target.dataset.dbId;
 
@@ -184,7 +182,7 @@ async function handleTableClick(event) {
     }
   }
 
-  // UPDATE
+
   if (target.classList.contains("edit-btn")) {
     const dbId = target.dataset.dbId;
     const student = students.find(
@@ -228,7 +226,7 @@ async function handleTableClick(event) {
   }
 }
 
-// --- Search ---
+
 
 function handleSearch() {
   const term = searchInput.value.toLowerCase();
@@ -245,7 +243,7 @@ function handleSearch() {
   renderTable(filtered);
 }
 
-// --- Sorting ---
+
 
 function handleSort(event) {
   const index = event.currentTarget.cellIndex;
@@ -267,7 +265,7 @@ function handleSort(event) {
     let result;
 
     if (key === "id") {
-      result = a[key].localeCompare(b[key]); // student ID is string
+      result = a[key].localeCompare(b[key]); 
     } else {
       result = a[key].localeCompare(b[key]);
     }
@@ -278,7 +276,6 @@ function handleSort(event) {
   renderTable(students);
 }
 
-// --- Initial load from API (READ) ---
 
 async function loadStudentsAndInitialize() {
   try {
@@ -296,10 +293,10 @@ async function loadStudentsAndInitialize() {
       return;
     }
 
-    // Map DB fields -> front-end fields
+
     students = result.data.map((row) => ({
-      dbId: row.id,                    // DB primary key
-      id: row.student_id,             // student ID (from email prefix)
+      dbId: row.id,                   
+      id: row.student_id,             
       name: row.name,
       email: row.email,
     }));
