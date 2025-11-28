@@ -11,3 +11,8 @@ Task| Student Name              | Student ID |
 ----|---------------------------|------------|
 Task 1: Homepage, Admin Portal & User Management| Abdulrahman Abdo Ahmed    | 202204625  |
 ## A link to your live, hosted application on Replit.
+🔗 **Live Application:**  
+https://replit.com/@aboodabdo347/ITCS333-Course-Project?v=1
+
+👥 **Invite Link:**  
+https://replit.com/join/bupbgqrjgo-aboodabdo347
