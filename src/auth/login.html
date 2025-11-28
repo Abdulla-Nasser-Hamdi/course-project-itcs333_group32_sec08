@@ -6,6 +6,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="login.css">
+    <script src="login.js" defer></script>
 </head>
 
 <body>
@@ -16,7 +17,7 @@
             
             <h1>Welcome Back!</h1>
 
-            <form action="#">
+            <form id="login-form" action="#">
                 <fieldset>
 
                     <legend>Secure Login</legend>
@@ -35,6 +36,9 @@
                     <button type="submit" id="login">Log In</button>
 
                 </fieldset>
+                <div id="message-container">
+
+                </div>
             </form>
 
         </section>
