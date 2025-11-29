@@ -1,4 +1,5 @@
 <?php
+session_start(); 
 
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
@@ -7,6 +8,16 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(200);
+    exit;
+}
+
+if (
+    empty($_SESSION['logged_in']) ||
+    empty($_SESSION['is_admin']) ||
+    $_SESSION['is_admin'] !== 1
+) {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'message' => 'Access denied']);
     exit;
 }
 

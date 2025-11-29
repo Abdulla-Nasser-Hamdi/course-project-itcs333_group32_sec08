@@ -280,6 +280,11 @@ function handleSort(event) {
 async function loadStudentsAndInitialize() {
   try {
     const response = await fetch(API_BASE_URL);
+    console.log(response)
+    if(response.status === 403){
+      alert("Only admins can access this page.")
+       window.location.href = "../auth/login.html";
+    }
 
     if (!response.ok) {
       console.error("Failed to load students from API");
