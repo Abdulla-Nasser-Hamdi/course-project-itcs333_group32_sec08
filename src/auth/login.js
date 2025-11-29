@@ -5,7 +5,7 @@ const messageContainer = document.getElementById("message-container");
 
 
 function displayMessage(message, type) {
-  const alertType = type === "success" ? "alert-success" : "alert-danger";
+  const alertType = type === "success" ? "alert-success" : "alert-danger"; // what will be displayed to user based on login data
   messageContainer.innerHTML = `
     <div class="alert ${alertType}" role="alert">
       ${message}
@@ -15,12 +15,12 @@ function displayMessage(message, type) {
 
 
 function isValidEmail(email) {
-  const regex = /\S+@\S+\.\S+/;
+  const regex = /\S+@\S+\.\S+/;  // make sure that user input for email is like this : example@example.example
   return regex.test(email);
 }
 
 function isValidPassword(password) {
-  return password.length >= 8;
+  return password.length >= 8;  // only when password input 8 or longer
 }
 
 
