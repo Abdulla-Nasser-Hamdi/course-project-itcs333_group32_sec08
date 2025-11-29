@@ -1,9 +1,13 @@
+
+/* all selectors part: */
 const loginForm = document.getElementById("login-form");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const messageContainer = document.getElementById("message-container");
 const loginButton = document.getElementById("login");
 
+
+/* all functions part: */
 function displayMessage(message, type) {
   const alertType = type === "success" ? "alert-success" : "alert-danger"; // what will be displayed to user based on login data
   messageContainer.innerHTML = `
