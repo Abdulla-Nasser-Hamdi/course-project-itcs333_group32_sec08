@@ -4,11 +4,15 @@ const passwordInput = document.getElementById("password");
 const messageContainer = document.getElementById("message-container");
 
 
-
 function displayMessage(message, type) {
-  messageContainer.textContent = message;
-  messageContainer.className = type; 
+  const alertType = type === "success" ? "alert-success" : "alert-danger";
+  messageContainer.innerHTML = `
+    <div class="alert ${alertType}" role="alert">
+      ${message}
+    </div>
+  `;
 }
+
 
 function isValidEmail(email) {
   const regex = /\S+@\S+\.\S+/;
@@ -20,12 +24,13 @@ function isValidPassword(password) {
 }
 
 
+const loginButton = document.getElementById("login");
+
 async function handleLogin(event) {
   event.preventDefault();
 
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
-
 
   if (!isValidEmail(email)) {
     displayMessage("Invalid email format.", "error");
@@ -36,6 +41,9 @@ async function handleLogin(event) {
     displayMessage("Password must be at least 8 characters.", "error");
     return;
   }
+
+  loginButton.classList.add("loading");
+  loginButton.textContent = "Logging in...";
 
   try {
     const response = await fetch("api/index.php", {
@@ -51,19 +59,22 @@ async function handleLogin(event) {
       return;
     }
 
-    displayMessage("Login successful!", "success");
+    displayMessage("✅ Login successful!", "success");
 
-  if (result.user && result.user.is_admin === 1) {
-  window.location.href = "../admin/manage_users.html";
- } else {
-    window.location.href = "../index.html"; 
-    }
+    setTimeout(() => {
+      if (result.user && result.user.is_admin === 1) {
+        window.location.href = "../admin/manage_users.html";
+      } else {
+        window.location.href = "../index.html";
+      }
+    }, 1200);
 
-    emailInput.value = "";
-    passwordInput.value = "";
   } catch (error) {
     console.error("Error during login:", error);
-    displayMessage("Server error. Please try again later.", "error");
+    displayMessage("Server error. Please try again.", "error");
+  } finally {
+    loginButton.classList.remove("loading");
+    loginButton.textContent = "Log In";
   }
 }
 
@@ -74,3 +85,12 @@ function setupLoginForm() {
 }
 
 setupLoginForm();
+const togglePassword = document.getElementById("togglePassword");
+const icon = togglePassword.querySelector("i");
+
+togglePassword.addEventListener("click", () => {
+  const isHidden = passwordInput.type === "password";
+  
+  passwordInput.type = isHidden ? "text" : "password";
+  icon.className = isHidden ? "bi bi-eye-slash" : "bi bi-eye";
+});
