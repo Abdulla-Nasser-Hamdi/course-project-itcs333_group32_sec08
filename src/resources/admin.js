@@ -17,8 +17,10 @@ let resources = [];
 
 // --- Element Selections ---
 // TODO: Select the resource form ('#resource-form').
+const selctResource = document.getElementById('resource-form');
 
 // TODO: Select the resources table body ('#resources-tbody').
+const resourcesTableBody = document.getElementById('resources-tbody');
 
 // --- Functions ---
 
@@ -33,7 +35,40 @@ let resources = [];
  * - A "Delete" button with class "delete-btn" and `data-id="${id}"`.
  */
 function createResourceRow(resource) {
-  // ... your implementation here ...
+  // Create the table row
+  const tr = document.createElement('tr');
+
+  // Title cell
+  const titleTd = document.createElement('td');
+  titleTd.textContent = resource.title || '';
+  tr.appendChild(titleTd);
+
+  // Description cell
+  const descTd = document.createElement('td');
+  descTd.textContent = resource.description || '';
+  tr.appendChild(descTd);
+
+  // Actions cell (Edit and Delete buttons)
+  const actionsTd = document.createElement('td');
+
+  const editBtn = document.createElement('button');
+  editBtn.className = 'edit-btn';
+  editBtn.setAttribute('data-id', resource.id);
+  editBtn.type = 'button';
+  editBtn.textContent = 'Edit';
+  actionsTd.appendChild(editBtn);
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.className = 'delete-btn';
+  deleteBtn.setAttribute('data-id', resource.id);
+  deleteBtn.type = 'button';
+  deleteBtn.textContent = 'Delete';
+  actionsTd.appendChild(deleteBtn);
+
+  tr.appendChild(actionsTd);
+
+  return tr;
+  
 }
 
 /**
