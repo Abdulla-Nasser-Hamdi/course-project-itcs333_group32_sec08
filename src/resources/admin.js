@@ -35,20 +35,20 @@ const resourcesTableBody = document.getElementById('resources-tbody');
  * - A "Delete" button with class "delete-btn" and `data-id="${id}"`.
  */
 function createResourceRow(resource) {
-  // Create the table row
+  
   const tr = document.createElement('tr');
 
-  // Title cell
+  
   const titleTd = document.createElement('td');
   titleTd.textContent = resource.title || '';
   tr.appendChild(titleTd);
 
-  // Description cell
+  
   const descTd = document.createElement('td');
   descTd.textContent = resource.description || '';
   tr.appendChild(descTd);
 
-  // Actions cell (Edit and Delete buttons)
+  
   const actionsTd = document.createElement('td');
 
   const editBtn = document.createElement('button');
@@ -80,7 +80,14 @@ function createResourceRow(resource) {
  * append the resulting <tr> to `resourcesTableBody`.
  */
 function renderTable() {
-  // ... your implementation here ...
+  // Clear the table body
+  resourcesTableBody.innerHTML = '';
+
+  // Loop through resources and append each row
+  for (const resource of resources) {
+    const row = createResourceRow(resource);
+    resourcesTableBody.appendChild(row);
+  }
 }
 
 /**
@@ -95,7 +102,43 @@ function renderTable() {
  * 6. Reset the form.
  */
 function handleAddResource(event) {
-  // ... your implementation here ...
+
+  
+  event.preventDefault();
+
+  
+  const titleInput = document.getElementById('resource-title');
+  const descInput = document.getElementById('resource-description');
+  const linkInput = document.getElementById('resource-link');
+
+  const title = titleInput ? titleInput.value.trim() : '';
+  const description = descInput ? descInput.value.trim() : '';
+  const link = linkInput ? linkInput.value.trim() : '';
+
+  
+  if (!title || !link) {
+   
+    return;
+  }
+
+  
+  const newResource = {
+    id: `res_${Date.now()}`,
+    title,
+    description,
+    link,
+  };
+
+  
+  resources.push(newResource);
+
+  
+  renderTable();
+
+  
+  if (selctResource && selctResource.reset) {
+    selctResource.reset();
+  }
 }
 
 /**
@@ -109,7 +152,24 @@ function handleAddResource(event) {
  * 4. Call `renderTable()` to refresh the list.
  */
 function handleTableClick(event) {
-  // ... your implementation here ...
+  
+  const btn = event.target.closest('button');
+  if (!btn) return;
+
+
+  if (btn.classList.contains('delete-btn')) {
+    const id = btn.getAttribute('data-id');
+    if (!id) return;
+
+    
+    resources = resources.filter((r) => r.id !== id);
+
+    
+    renderTable();
+    return;
+  }
+
+  
 }
 
 /**
@@ -123,7 +183,35 @@ function handleTableClick(event) {
  * 5. Add the 'click' event listener to `resourcesTableBody` (calls `handleTableClick`).
  */
 async function loadAndInitialize() {
-  // ... your implementation here ...
+  try {
+    const resp = await fetch('api/resources.json');
+    if (!resp.ok) {
+      console.warn('Failed to fetch resources.json:', resp.status, resp.statusText);
+      resources = [];
+    } else {
+      const data = await resp.json();
+      resources = Array.isArray(data) ? data : [];
+    }
+  } catch (err) {
+    console.warn('Error fetching resources.json:', err);
+    resources = [];
+  }
+
+  
+  renderTable();
+
+  
+  if (selctResource) {
+    selctResource.addEventListener('submit', handleAddResource);
+  } else {
+    console.warn('Resource form element not found.');
+  }
+
+  if (resourcesTableBody) {
+    resourcesTableBody.addEventListener('click', handleTableClick);
+  } else {
+    console.warn('Resources table body not found.');
+  }
 }
 
 // --- Initial Page Load ---
