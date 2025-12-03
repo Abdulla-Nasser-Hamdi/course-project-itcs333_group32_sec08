@@ -17,8 +17,12 @@ let assignments = [];
 
 // --- Element Selections ---
 // TODO: Select the assignment form ('#assignment-form').
+const assignmentForm = document.querySelector("#assignment-form");
+
 
 // TODO: Select the assignments table body ('#assignments-tbody').
+const assignmentsTbody = document.querySelector("#assignments-tbody");
+
 
 // --- Functions ---
 
