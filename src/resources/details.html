@@ -18,18 +18,19 @@
 <body>
     <!-- TODO: Create a 'header' with a main heading ('h1'). You can use a dummy title like "Chapter 1 Notes". -->
     <header>
-        <h1>Chapter 1 Notes</h1>
+        <h1 id="resource-title">Chapter 1 Notes</h1>
+    </header>
     <!-- TODO: Create the 'main' content area. -->
         <main>
         <!-- Section 1: Resource Information -->
         <!-- TODO: Use an 'article' to display the main resource information. -->
             <article>
             <!-- TODO: Add a paragraph ('p') for the resource description (use dummy text). -->
-             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero facilis deleniti a impedit sed, voluptate voluptatum ratione officia praesentium aperiam culpa eligendi reiciendis id voluptatibus repellendus cumque quaerat nostrum ipsa?</p>
+             <p id="resource-description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero facilis deleniti a impedit sed, voluptate voluptatum ratione officia praesentium aperiam culpa eligendi reiciendis id voluptatibus repellendus cumque quaerat nostrum ipsa?</p>
             <!-- TODO: Add an anchor tag ('a') that links to the actual resource URL (use a dummy link like "https://example.com").
                  - Text should be "Access Resource Material".
                  - Consider adding 'target="_blank"' to open it in a new tab. -->
-                <a href="https://example.com" target="_blank">Access Resource Material</a>
+                <a href="https://example.com" target="_blank" id="resource-link">Access Resource Material</a>
         <!-- End of article. -->
                 </article>
         <!-- Section 2: Discussion Forum -->
@@ -39,7 +40,7 @@
             <h2>Discussion</h2>
             <!-- Subsection 2.1: Existing Comments -->
             <!-- TODO: Add a container (like a 'div') for the list of comments. -->
-            <div>
+            <div id="comment-list">
                 <!-- TODO: Add 1-2 dummy comments to show the structure. -->
                     
                 <!-- Example Comment 1: -->
@@ -62,19 +63,34 @@
 
             <!-- Subsection 2.2: Add a Comment Form -->
             <!-- TODO: Create a 'form' for users to post new comments. Action can be '#'. -->
-                <!-- TODO: Use a 'fieldset' to group the controls. -->
-                    <!-- TODO: Add a 'legend', e.g., "Leave a Comment". -->
+            <form action="#" id="comment-form">
 
-                    <!-- TODO: Add a 'label' and 'textarea' for the comment box.
-                         - label 'for': "new-comment"
-                         - textarea 'id': "new-comment", required -->
-                    
-                    <!-- TODO: Add a 'button' to submit the comment.
-                         - type="submit", Text: "Post Comment" -->
-                <!-- End of fieldset. -->
-            <!-- End of form. -->
+                 <!-- TODO: Use a 'fieldset' to group the controls. -->
+                <fieldset>
+
+                      <!-- TODO: Add a 'legend', e.g., "Leave a Comment". -->
+                        <legend>Leave a Comment</legend>
+                      
+                      <!-- TODO: Add a 'label' and 'textarea' for the comment box.
+                      - label 'for': "new-comment"
+                      - textarea 'id': "new-comment", required -->
+                      <label for="new-comment"></label>
+                        <textarea id="new-comment" required></textarea>
+                      
+                      <!-- TODO: Add a 'button' to submit the comment.
+                      - type="submit", Text: "Post Comment" -->
+                      <button type="submit">Post Comment</button>
+                      <!-- End of fieldset. -->
+                </fieldset>
+                 <!-- End of form. -->
+            </form>
         <!-- End of discussion section. -->
+            </section>
 
     <!-- End of main. -->
+        </main>
+
+
+        <script src="details.js" defer></script>
 </body>
 </html>

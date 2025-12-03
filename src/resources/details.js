@@ -23,6 +23,12 @@ let currentComments = [];
 
 // --- Element Selections ---
 // TODO: Select all the elements you added IDs for in step 2.
+const RT =document.getElementById("resource-title");
+const RD =document.getElementById("resource-description");
+const RL =document.getElementById("resource-link");
+const CL =document.getElementById("comment-list");
+const Cf =document.getElementById("comment-form");
+const NC =document.getElementById("new-comment");
 
 // --- Functions ---
 
@@ -35,6 +41,8 @@ let currentComments = [];
  */
 function getResourceIdFromURL() {
   // ... your implementation here ...
+  const idPar = new URLSearchParams(window.location.search);
+  return idPar.get("id");
 }
 
 /**
@@ -47,6 +55,9 @@ function getResourceIdFromURL() {
  */
 function renderResourceDetails(resource) {
   // ... your implementation here ...
+  RT.textContent = resource.title;
+  RD.textContent = resource.description;
+  RL.href = resource.link;
 }
 
 /**
@@ -57,6 +68,15 @@ function renderResourceDetails(resource) {
  */
 function createCommentArticle(comment) {
   // ... your implementation here ...
+  const article = document.createElement("article");
+  const p = document.createElement("p");
+  p.textContent = comment.text;
+  const footer = document.createElement("footer");
+  footer.textContent = "posted by: " + comment.author;
+  article.appendChild(p);
+  article.appendChild(footer);
+  return article;
+
 }
 
 /**
@@ -69,6 +89,11 @@ function createCommentArticle(comment) {
  */
 function renderComments() {
   // ... your implementation here ...
+  CL.innerHTML = "";
+  for (let comment of currentComments) {
+    const article = createCommentArticle(comment);
+    CL.appendChild(article);
+  }
 }
 
 /**
