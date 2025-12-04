@@ -111,6 +111,16 @@ function renderComments() {
  */
 function handleAddComment(event) {
   // ... your implementation here ...
+  event.preventDefault();
+  const commentText = NC.ariaValueMax.trim();
+  if (commentText === "") {
+    return;
+  }else{
+    const newComment = {author: "student", text:commentText};
+    currentComments.push(newComment);
+    renderComments();
+    NC.value = "";
+  }
 }
 
 /**
@@ -132,6 +142,32 @@ function handleAddComment(event) {
  */
 async function initializePage() {
   // ... your implementation here ...
+  currentResourceId = getResourceIdFromURL();
+  if (!currentResourceId){
+    RT.textContent = "Resource not found.";
+    return;
+  }else{
+    const [resourcesResp, commentsResp] = await Promise.all([
+      fetch("resources.json"),
+      fetch("resource-comments.json"),
+    ]);
+
+    const resources = await resourcesResp.json();
+    const commentsData = await commentsResp.json();
+
+    const resource = resources.find((res) => res.id === currentResourceId);
+    currentComments = commentsData[currentResourceId] || [];
+
+    if (resource){
+      renderResourceDetails(resource);
+      renderComments();
+      Cf.addEventListener("submit", handleAddComment)
+    }
+    else{
+      RT.textContent = "Resource not found.";
+    }
+  }
+
 }
 
 // --- Initial Page Load ---
