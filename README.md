@@ -6,10 +6,12 @@
 | Student Name              | Student ID |
 |---------------------------|------------|
 | Abdulrahman Abdo Ahmed    | 202204625  |
+| Sayed Husain Mohamed Ahmed | 202109507  |
 ## A table indicating which student was responsible for which task.
 Task| Student Name              | Student ID |
 ----|---------------------------|------------|
 Task 1: Homepage, Admin Portal & User Management| Abdulrahman Abdo Ahmed    | 202204625  |
+Task 2: Course Resources | Sayed Husain Mohamed Ahmed | 202109507  |
 ## A link to your live, hosted application on Replit.
 🔗 **Live Application:**  
 https://replit.com/@aboodabdo347/ITCS333-Course-Project?v=1
