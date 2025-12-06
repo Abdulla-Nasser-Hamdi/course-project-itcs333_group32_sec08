@@ -1,0 +1,105 @@
+/* Basic Page Settings */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Header */
+header {
+  background-color: #4a6cf7;
+  color: white;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 22px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  margin: 0;
+  text-align: center;
+  border-radius: 0;
+}
+
+/* Section Headings */
+main h2 {
+  margin-left: 0;
+  margin-top: 25px;
+  color: #333;
+  text-align: center;
+}
+
+/* Assignment Form Box */
+#assignment-form {
+  background-color: white;
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+/* Inputs and Textareas inside Form */
+#assignment-form input,
+#assignment-form textarea {
+  width: 95%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #777;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Form Button */
+#assignment-form button {
+  margin-top: 12px;
+  padding: 10px 20px;
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#assignment-form button:hover {
+  background-color: #3e55c1;
+}
+
+/* Assignments Table Box */
+#assignments-table {
+  width: 80%;
+  margin: 20px auto;
+  background-color: white;
+  border-collapse: collapse;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* Table Headings */
+#assignments-table th {
+  background-color: #efefef;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Table Cells */
+#assignments-table td {
+  border-bottom: 1px solid #ddd;
+  padding: 12px;
+}
+
+/* Action Buttons inside Table */
+#assignments-table .actions button {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#assignments-table .actions button:hover {
+  background-color: #344db3;
+}

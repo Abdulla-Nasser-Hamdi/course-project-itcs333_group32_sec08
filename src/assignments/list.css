@@ -1,0 +1,73 @@
+/* Basic page settings */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #eef1f6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+header {
+  background-color: #3d7bd9;
+  padding: 25px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+/* Main container */
+main {
+  width: 85%;
+  max-width: 900px;
+  margin: 25px auto;
+}
+
+/* Assignment list */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Each assignment card */
+article {
+  background: #ffffff;
+  border: 1px solid #c7c7c7;
+  padding: 18px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
+article h2 {
+  margin-top: 0;
+  font-size: 22px;
+  color: #333;
+}
+
+/* Paragraph styling */
+article p {
+  line-height: 1.5;
+  margin-top: 8px;
+  color: #444;
+}
+
+/* Assignment link */
+a {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background-color: #3d7bd9;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+a:hover {
+  background-color: #2f67b5;
+}
