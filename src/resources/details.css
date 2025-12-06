@@ -1,4 +1,4 @@
-/* Reset and Base Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +16,7 @@ body {
     min-height: 100vh;
 }
 
-/* Header Styles */
+
 header {
     background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
     color: white;
@@ -34,14 +34,14 @@ header h1 {
     word-wrap: break-word;
 }
 
-/* Main Content Styles */
+
 main {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
 }
 
-/* Resource Information Article */
+
 article {
     background: white;
     border-radius: 12px;
@@ -87,7 +87,7 @@ article a:before {
     font-size: 1.2rem;
 }
 
-/* Discussion Section */
+
 #discussion-forum {
     background: white;
     border-radius: 12px;
@@ -112,7 +112,7 @@ article a:before {
     font-size: 1.5rem;
 }
 
-/* Comment List */
+
 #comment-list {
     margin-bottom: 2.5rem;
     display: flex;
@@ -156,7 +156,7 @@ article a:before {
     content: "👤 ";
 }
 
-/* Comment Form */
+
 #comment-form {
     background: #f8fafc;
     border-radius: 10px;
@@ -181,7 +181,7 @@ legend {
     border: 2px solid #dbeafe;
 }
 
-/* Form Elements */
+
 label {
     display: block;
     margin-bottom: 0.75rem;
@@ -236,7 +236,7 @@ button[type="submit"]:before {
     font-size: 1.2rem;
 }
 
-/* No Comments State */
+
 #comment-list:empty {
     text-align: center;
     padding: 3rem;
@@ -251,7 +251,7 @@ button[type="submit"]:before {
     content: "No comments yet. Be the first to start the discussion!";
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     body {
         padding: 15px;
@@ -317,7 +317,7 @@ button[type="submit"]:before {
     }
 }
 
-/* Focus States for Accessibility */
+
 button:focus,
 textarea:focus,
 article a:focus {
@@ -325,7 +325,7 @@ article a:focus {
     outline-offset: 2px;
 }
 
-/* Animation for new comments */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -341,7 +341,7 @@ article a:focus {
     animation: fadeIn 0.3s ease-out;
 }
 
-/* Scrollbar Styling */
+
 ::-webkit-scrollbar {
     width: 8px;
 }

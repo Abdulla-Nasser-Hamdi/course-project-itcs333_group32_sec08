@@ -1,4 +1,4 @@
-/* Reset and Base Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -14,13 +14,13 @@ body {
     padding: 20px;
 }
 
-/* Container */
+
 body {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Header Styles */
+
 header {
     text-align: center;
     padding: 3rem 2rem;
@@ -61,12 +61,12 @@ header::after {
     position: relative;
 }
 
-/* Main Content Styles */
+
 main {
     padding: 0 1rem;
 }
 
-/* Resource Grid */
+
 section {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -74,7 +74,7 @@ section {
     padding: 1rem 0;
 }
 
-/* Resource Card */
+
 article {
     background: white;
     border-radius: 16px;
@@ -104,7 +104,7 @@ article:hover {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Resource Title */
+
 article h2 {
     color: #2D3748;
     font-size: 1.5rem;
@@ -120,7 +120,7 @@ article h2::before {
     opacity: 0.8;
 }
 
-/* Resource Description */
+
 article p {
     color: #4A5568;
     font-size: 1rem;
@@ -133,7 +133,7 @@ article p {
     border-left: 3px solid #4299E1;
 }
 
-/* Resource Link */
+
 article a {
     display: inline-flex;
     align-items: center;
@@ -169,7 +169,7 @@ article a:hover::after {
     transform: translateX(3px);
 }
 
-/* Empty State */
+
 section:empty::before {
     content: "No resources available yet. Check back soon!";
     display: block;
@@ -184,7 +184,7 @@ section:empty::before {
     grid-column: 1 / -1;
 }
 
-/* Responsive Design */
+
 @media (max-width: 1200px) {
     section {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -256,7 +256,7 @@ section:empty::before {
     }
 }
 
-/* Loading Animation (for JavaScript) */
+
 @keyframes shimmer {
     0% {
         background-position: -1000px 0;
@@ -295,14 +295,14 @@ section:empty::before {
     border: none;
 }
 
-/* Focus States for Accessibility */
+
 article a:focus {
     outline: 2px solid #4299E1;
     outline-offset: 2px;
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
 }
 
-/* Scrollbar Styling */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -321,7 +321,7 @@ article a:focus {
     background: linear-gradient(135deg, #3B69D9 0%, #7D47D9 100%);
 }
 
-/* Print Styles */
+
 @media print {
     body {
         background: white;

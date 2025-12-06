@@ -1,4 +1,4 @@
-/* Reset and Base Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +15,7 @@ body {
     margin: 0 auto;
 }
 
-/* Header Styles */
+
 header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -31,14 +31,14 @@ header h1 {
     font-weight: 600;
 }
 
-/* Main Content Styles */
+
 main {
     display: flex;
     flex-direction: column;
     gap: 2rem;
 }
 
-/* Section Styles */
+
 section {
     background: white;
     border-radius: 10px;
@@ -60,7 +60,7 @@ section h2 {
     font-size: 1.8rem;
 }
 
-/* Form Styles */
+
 #resource-form {
     max-width: 800px;
     margin: 0 auto;
@@ -83,7 +83,7 @@ legend {
     border: 2px solid #e2e8f0;
 }
 
-/* Form Labels and Inputs */
+
 label {
     display: block;
     margin: 1rem 0 0.5rem;
@@ -118,7 +118,7 @@ textarea {
     font-family: inherit;
 }
 
-/* Button Styles */
+
 button {
     padding: 0.75rem 1.5rem;
     border: none;
@@ -146,7 +146,7 @@ button:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Table Styles */
+
 #resources-table {
     width: 100%;
     border-collapse: collapse;
@@ -183,7 +183,7 @@ button:hover {
     vertical-align: top;
 }
 
-/* Action Buttons in Table */
+
 .edit-resource {
     background-color: #4299e1;
     color: white;
@@ -205,7 +205,7 @@ button:hover {
     box-shadow: 0 2px 4px rgba(229, 62, 62, 0.3);
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     body {
         padding: 10px;
@@ -250,7 +250,7 @@ button:hover {
     }
 }
 
-/* Status Messages (for JavaScript interactions) */
+
 .status-message {
     padding: 1rem;
     border-radius: 6px;
@@ -271,7 +271,7 @@ button:hover {
     border: 1px solid #fc8181;
 }
 
-/* Form Validation Styles */
+
 input:invalid,
 textarea:invalid {
     border-color: #fc8181;
@@ -282,7 +282,7 @@ textarea:valid {
     border-color: #48bb78;
 }
 
-/* Focus States for Accessibility */
+
 button:focus,
 input:focus,
 textarea:focus {
@@ -290,7 +290,7 @@ textarea:focus {
     outline-offset: 2px;
 }
 
-/* Empty State for Table */
+
 #resources-table tbody tr.empty-state {
     text-align: center;
     color: #718096;
