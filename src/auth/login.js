@@ -1,107 +1,97 @@
-/*
-  Requirement: Add client-side validation to the login form.
 
-  Instructions:
-  1. Link this file to your HTML using a <script> tag with the 'defer' attribute.
-     Example: <script src="login.js" defer></script>
-  
-  2. In your login.html, add a <div> element *after* the </fieldset> but
-     *before* the </form> closing tag. Give it an id="message-container".
-     This div will be used to display success or error messages.
-     Example: <div id="message-container"></div>
-  
-  3. Implement the JavaScript functionality as described in the TODO comments.
-*/
+/* all selectors part: */
+const loginForm = document.getElementById("login-form");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const messageContainer = document.getElementById("message-container");
+const loginButton = document.getElementById("login");
 
-// --- Element Selections ---
-// We can safely select elements here because 'defer' guarantees
-// the HTML document is parsed before this script runs.
 
-// TODO: Select the login form. (You'll need to add id="login-form" to the <form> in your HTML).
-
-// TODO: Select the email input element by its ID.
-
-// TODO: Select the password input element by its ID.
-
-// TODO: Select the message container element by its ID.
-
-// --- Functions ---
-
-/**
- * TODO: Implement the displayMessage function.
- * This function takes two arguments:
- * 1. message (string): The message to display.
- * 2. type (string): "success" or "error".
- *
- * It should:
- * 1. Set the text content of `messageContainer` to the `message`.
- * 2. Set the class name of `messageContainer` to `type`
- * (this will allow for CSS styling of 'success' and 'error' states).
- */
+/* all functions part: */
 function displayMessage(message, type) {
-  // ... your implementation here ...
+  const alertType = type === "success" ? "alert-success" : "alert-danger"; // what will be displayed to user based on login data
+  messageContainer.innerHTML = `
+    <div class="alert ${alertType}" role="alert">
+      ${message}
+    </div>
+  `;
 }
 
-/**
- * TODO: Implement the isValidEmail function.
- * This function takes one argument:
- * 1. email (string): The email string to validate.
- *
- * It should:
- * 1. Use a regular expression to check if the email format is valid.
- * 2. Return `true` if the email is valid (e.g., "test@example.com").
- * 3. Return `false` if the email is invalid (e.g., "test@", "test.com", "test@.com").
- *
- * A simple regex for this purpose is: /\S+@\S+\.\S+/
- */
 function isValidEmail(email) {
-  // ... your implementation here ...
+  const regex = /\S+@\S+\.\S+/;  // make sure that user input for email is like this : example@example.example
+  return regex.test(email);
 }
 
-/**
- * TODO: Implement the isValidPassword function.
- * This function takes one argument:
- * 1. password (string): The password string to validate.
- *
- * It should:
- * 1. Check if the password length is 8 characters or more.
- * 2. Return `true` if the password is valid.
- * 3. Return `false` if the password is not valid.
- */
 function isValidPassword(password) {
-  // ... your implementation here ...
+  return password.length >= 8;  // only when password input 8 or longer
 }
 
-/**
- * TODO: Implement the handleLogin function.
- * This function will be the event handler for the form's "submit" event.
- * It should:
- * 1. Prevent the form's default submission behavior.
- * 2. Get the `value` from `emailInput` and `passwordInput`, trimming any whitespace.
- * 3. Validate the email using `isValidEmail()`.
- * - If invalid, call `displayMessage("Invalid email format.", "error")` and stop.
- * 4. Validate the password using `isValidPassword()`.
- * - If invalid, call `displayMessage("Password must be at least 8 characters.", "error")` and stop.
- * 5. If both email and password are valid:
- * - Call `displayMessage("Login successful!", "success")`.
- * - (Optional) Clear the email and password input fields.
- */
-function handleLogin(event) {
-  // ... your implementation here ...
+async function handleLogin(event) {
+  event.preventDefault();
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
+
+  if (!isValidEmail(email)) {
+    displayMessage("Invalid email format.", "error");  // using displayMessage to display the user about his input
+    return;
+  }
+
+  if (!isValidPassword(password)) {
+    displayMessage("Password must be at least 8 characters.", "error");
+    return;
+  }
+
+  loginButton.classList.add("loading");  // add classname called loading to change the loginbutton content
+  loginButton.textContent = "Logging in..."; 
+
+  try {
+    const response = await fetch("api/index.php", {  // send the input of the user to the backend
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),  // parse it into json and send it
+    });
+
+    const result = await response.json();  // get the response from the backend
+
+    if (!result.success) {
+      displayMessage(result.message || "Login failed.", "error");  // using displayMessage to display the user
+      return;
+    }
+
+    displayMessage("✅ Login successful!", "success");  // using displayMessage that his input was correct 
+
+    setTimeout(() => {                                           // set time counter for about 1 sec before transfer the user to the proper page
+      if (result.user && result.user.is_admin === 1) {  
+        window.location.href = "../admin/manage_users.html";    // admin will be send to admin portal
+      } else {
+        window.location.href = "../index.html";                 // student will be send to index page
+      }
+    }, 1200);
+
+  } catch (error) {
+    console.error("Error during login:", error);
+    displayMessage("Server error. Please try again.", "error");   // using displayMeassge that some error happened in the backend
+  } finally {
+    loginButton.classList.remove("loading");
+    loginButton.textContent = "Log In";
+  }
 }
 
-/**
- * TODO: Implement the setupLoginForm function.
- * This function will be called once to set up the form.
- * It should:
- * 1. Check if `loginForm` exists.
- * 2. If it exists, add a "submit" event listener to it.
- * 3. The event listener should call the `handleLogin` function.
- */
 function setupLoginForm() {
-  // ... your implementation here ...
+  if (loginForm) {
+    loginForm.addEventListener("submit", handleLogin);
+  }
 }
 
-// --- Initial Page Load ---
-// Call the main setup function to attach the event listener.
 setupLoginForm();
+/* this is for the show/hide password functionality */
+const togglePassword = document.getElementById("togglePassword");
+const icon = togglePassword.querySelector("i");
+
+togglePassword.addEventListener("click", () => {
+  const isHidden = passwordInput.type === "password";
+  
+  passwordInput.type = isHidden ? "text" : "password";
+  icon.className = isHidden ? "bi bi-eye-slash" : "bi bi-eye";
+});

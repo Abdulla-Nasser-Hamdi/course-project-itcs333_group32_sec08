@@ -1,0 +1,178 @@
+:root {
+  --accent: #3b82f6;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+header {
+  padding-block: 1.5rem;
+}
+
+header h1 {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+main {
+  padding-bottom: 2rem;
+}
+
+.admin-panel {
+  background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(15,23,42,0.92));
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: 0 22px 60px rgba(15,23,42,0.8);
+}
+
+.admin-panel h2,
+.admin-panel h3 {
+  color: #e5e7eb;
+}
+
+legend {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+label {
+  color: #cbd5f5;
+  font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"] {
+  background-color: #020617;
+  border-radius: 0.6rem;
+  border: 1px solid #1e293b;
+  color: #e5e7eb;
+}
+
+input::placeholder {
+  color: #64748b;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(59,130,246,0.5);
+  background-color: #020617;
+  color: #fff;
+}
+
+button,
+.btn-primary {
+  background-color:  #38bdf8;
+  border: none;
+  border-radius: 999px;
+  padding-inline: 1.5rem;
+  padding-block: 0.6rem;
+  font-weight: 500;
+}
+
+button:hover,
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+button.secondary {
+  background: transparent;
+  border-radius: 999px;
+  border: 1px solid #4b5563;
+  color: #e5e7eb;
+  padding-inline: 1.3rem;
+  padding-block: 0.45rem;
+  box-shadow: none;
+}
+
+button.secondary:hover {
+    border-color: #f97373;
+    color: #ff0000;
+    background: rgba(248,113,113,0.08);
+}
+
+details summary {
+  cursor: pointer;
+  color: #bfdbfe;
+}
+
+details[open] summary {
+  color: #60a5fa;
+}
+
+#search-input {
+  max-width: 280px;
+  margin-bottom: 1rem;
+}
+
+table {
+  margin-top: 0.5rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: #020617;
+}
+
+thead {
+  background: linear-gradient(135deg, rgba(30,64,175,0.95), rgba(59,130,246,0.94));
+}
+
+thead th {
+  border: none !important;
+  color: #e5e7eb;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #020617;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #02081a;
+}
+
+tbody tr:hover {
+  background-color: #0b1120;
+}
+
+tbody td {
+  border-color: #0f172a !important;
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+      font-size: 1.6rem;
+  }
+
+  .admin-panel {
+      padding: 1.25rem !important;
+  }
+
+  table {
+      font-size: 0.85rem;
+  }
+}
+#student-table {
+  background-color: #020617;
+}
+
+#student-table tbody tr,
+#student-table tbody td {
+  background-color: #020617 !important;  
+  color: #e5e7eb;                   
+}
+
+#student-table tbody tr:nth-child(odd) {
+  background-color: #02081a !important;
+}
+
+#student-table tbody tr:hover {
+  background-color: #0b1120 !important;
+}
