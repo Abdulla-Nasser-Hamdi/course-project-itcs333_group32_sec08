@@ -80,7 +80,7 @@ require_once __DIR__ . '/../config/Database.php';
 // Example: $database = new Database();
 // Example: $db = $database->getConnection();
 try {
-    //$database = new Database();
+    $database = new Database();
     $db = $database->getConnection();
 } catch (Exception $e) {
     // Cannot connect to database
