@@ -79,7 +79,7 @@ require_once __DIR__ . '/../config/Database.php';
 // TODO: Get the PDO database connection
 // Example: $database = new Database();
 // Example: $db = $database->getConnection();
-$db = (new Database())->getConnection(); 
+$db = (new Database())->getConnection();
 
 
 
@@ -124,7 +124,7 @@ $commentId = isset($_GET['comment_id']) ? $_GET['comment_id'] : null;
 function getAllResources($db) {
     // TODO: Initialize the base SQL query
     // SELECT id, title, description, link, created_at FROM resources
-    $sqlquery = "SELECT id, titile, description, link, created_at FROM resources";
+    $sqlquery = "SELECT id, title, description, link, created_at FROM resources";
     
     
 
