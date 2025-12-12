@@ -79,13 +79,7 @@ require_once __DIR__ . '/../config/Database.php';
 // TODO: Get the PDO database connection
 // Example: $database = new Database();
 // Example: $db = $database->getConnection();
-try {
-    //$database = new Database();
-    $db = $database->getConnection();
-} catch (Exception $e) {
-    // Cannot connect to database
-    sendResponse(['success' => false, 'message' => 'Database connection error.'], 503);
-}
+$db = (new Database())->getConnection();
 
 
 
