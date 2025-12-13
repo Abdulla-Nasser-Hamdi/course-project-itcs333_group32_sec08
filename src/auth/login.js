@@ -42,8 +42,6 @@ async function handleLogin(event) {
     return;
   }
 
-  loginButton.classList.add("loading");  // add classname called loading to change the loginbutton content
-  loginButton.textContent = "Logging in..."; 
 
   try {
     const response = await fetch("api/index.php", {  // send the input of the user to the backend
