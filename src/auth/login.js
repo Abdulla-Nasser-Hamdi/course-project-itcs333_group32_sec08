@@ -70,9 +70,6 @@ async function handleLogin(event) {
   } catch (error) {
     console.error("Error during login:", error);
     displayMessage("Server error. Please try again.", "error");   // using displayMeassge that some error happened in the backend
-  } finally {
-    loginButton.classList.remove("loading");
-    loginButton.textContent = "Log In";
   }
 }
 
