@@ -85,13 +85,20 @@ function setupLoginForm() {
 }
 
 setupLoginForm();
-/* this is for the show/hide password functionality */
-const togglePassword = document.getElementById("togglePassword");
-const icon = togglePassword.querySelector("i");
 
-togglePassword.addEventListener("click", () => {
-  const isHidden = passwordInput.type === "password";
-  
-  passwordInput.type = isHidden ? "text" : "password";
-  icon.className = isHidden ? "bi bi-eye-slash" : "bi bi-eye";
-});
+/* show/hide password functionality (safe for tests) */
+const togglePassword = document.getElementById("togglePassword");
+
+if (togglePassword && passwordInput) {
+  const icon = togglePassword.querySelector("i"); // may be null if HTML changes
+
+  togglePassword.addEventListener("click", () => {
+    const isHidden = passwordInput.type === "password";
+
+    passwordInput.type = isHidden ? "text" : "password";
+
+    if (icon) {
+      icon.className = isHidden ? "bi bi-eye-slash" : "bi bi-eye";
+    }
+  });
+}
