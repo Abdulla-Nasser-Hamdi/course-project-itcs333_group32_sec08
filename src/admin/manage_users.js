@@ -312,7 +312,7 @@ async function handleTableClick(event) {
 
 
 
-function handleSearch() {
+function handleSearch(event) {
   const term = searchInput.value.toLowerCase();
 
   if (term === "") {
