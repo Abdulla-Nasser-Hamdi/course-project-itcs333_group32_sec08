@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8">
+    
+    <!-- Responsive Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page Title -->
+    <title>Topic Details</title>
+
+    <!-- CSS Framework or Shared Stylesheet -->
+    <link rel="stylesheet" href="../common/styles.css">
+</head>
+<body>
+
+<header>
+    <!-- Topic Subject will be dynamically filled by JS -->
+    <h1 id="topic-subject">Topic Title</h1>
+</header>
+
+<main>
+
+    <!-- Section 1: Original Post -->
+    <article id="original-post">
+        <p id="op-message">Original message content will appear here.</p>
+        <footer id="op-footer">Posted by: Student on YYYY-MM-DD</footer>
+        <div>
+            <button class="secondary">Edit</button>
+            <button class="contrast">Delete</button>
+        </div>
+    </article>
+
+    <!-- Section 2: Replies -->
+    <section id="replies-section">
+        <h2>Replies</h2>
+        <div id="reply-list-container">
+            <!-- Replies will be dynamically added here by JS -->
+        </div>
+    </section>
+
+    <!-- Section 3: Add Reply Form -->
+    <section>
+        <h2>Post a Reply</h2>
+        <form action="#" id="reply-form">
+            <fieldset>
+                <legend>Your Reply</legend>
+                <label for="new-reply">Message</label>
+                <textarea id="new-reply" required placeholder="Write your reply here..."></textarea>
+                <button type="submit">Post Reply</button>
+            </fieldset>
+        </form>
+    </section>
+
+</main>
+
+<!-- JS -->
+<script src="topic.js" defer></script>
+</body>
+</html>
