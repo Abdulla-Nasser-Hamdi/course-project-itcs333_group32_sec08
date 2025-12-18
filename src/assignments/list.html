@@ -15,8 +15,9 @@
     <title>Course Assignments</title>
 
     <!-- TODO: Link to your CSS framework or stylesheet. -->
-    <link rel="stylesheet" href="list.css"> 
- </head>
+    <link rel="stylesheet" href="list.css" />
+    <script src="list.js" defer></script>
+  </head>
   <body>
     <!-- TODO: Create a 'header' with a main heading ('h1') "Course Assignments". -->
     <header>
@@ -25,37 +26,33 @@
 
     <!-- TODO: Create the 'main' content area. -->
     <main>
-      <ul>
-        <li>
-          <article>
-            <h2>Assignment 1: HTML Basics</h2>
-            <p>Due: 15/5/2026 11:59pm</p>
-            <p>
-              description: This assignment focuses on practicing HTML structure,
-              please read the instructions carefully and complete all required
-              tasks before submission.
-            </p>
-            <a href="assignment-detail.html" target="_blank">
-              View Details & Discussion
-            </a>
-          </article>
-        </li>
+      <section id="assignment-list-section">
+        <article>
+          <h2>Assignment 1: HTML Basics</h2>
+          <p>Due: 15/5/2026 11:59pm</p>
+          <p>
+            description: This assignment focuses on practicing HTML structure,
+            please read the instructions carefully and complete all required
+            tasks before submission.
+          </p>
+          <a href="assignment-detail.html" target="_blank">
+            View Details & Discussion
+          </a>
+        </article>
 
-        <li>
-          <article>
-            <h2>Assignment 2: CSS Basics</h2>
-            <p>Due: 20/5/2026 11:59pm</p>
-            <p>
-              description: This assignment requires applying fundamental CSS
-              concepts, please read the instructions carefully and complete all
-              required tasks before submission.
-            </p>
-            <a href="assignment-detail.html" target="_blank">
-              View Details & Discussion
-            </a>
-          </article>
-        </li>
-      </ul>
+        <article>
+          <h2>Assignment 2: CSS Basics</h2>
+          <p>Due: 20/5/2026 11:59pm</p>
+          <p>
+            description: This assignment requires applying fundamental CSS
+            concepts, please read the instructions carefully and complete all
+            required tasks before submission.
+          </p>
+          <a href="assignment-detail.html" target="_blank">
+            View Details & Discussion
+          </a>
+        </article>
+      </section>
     </main>
     <!-- TODO: Create a 'section' to contain the list of assignments. -->
     <!-- TODO: Add 2-3 dummy assignment entries using the structure below. -->
