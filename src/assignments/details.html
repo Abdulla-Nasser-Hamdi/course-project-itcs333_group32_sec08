@@ -17,11 +17,11 @@
 
     <!-- TODO: Link to your CSS framework or stylesheet. -->
         <link rel="stylesheet" href="details.css">
-
+    <script src="details.js" defer></script>
   </head>
   <body>
     <!-- TODO: Create a 'header' with a main heading ('h1'). Use a dummy title like "Assignment 1: HTML Basics". -->
-    <h1>Assignment 1: HTML Basics</h1>
+    <h1 id="assignment-title">Assignment 1: HTML Basics</h1>
 
     <!-- TODO: Create the 'main' content area. -->
 
@@ -39,8 +39,8 @@
     <!-- End of article. -->
     <main>
       <article>
-        <p>Due: 2026-02-08</p>
-        <h2>Description</h2>
+        <p id="assignment-due-date">Due: 2026-02-08</p>
+        <h2 id="assignment-description">Description</h2>
         <p>
           This assignment focuses on practicing HTML structure, please read the
           instructions carefully and complete all required tasks before
@@ -48,16 +48,16 @@
         </p>
 
         <h2>Attached Files & Links</h2>
-        <ul>
+        <ul id="assignment-files-list">
           <li><a href="#">assignment-brief.pdf</a></li>
         </ul>
       </article>
 
       <section id="discussion-forum">
-        <h2>Questions & Discussion</h2>
+        <h2 id="discussion-forum">Questions & Discussion</h2>
 
         <!-- Comments container -->
-        <div class="comments-list">
+        <div class="comments-list" id="comment-list">
           <!-- Example Comment 1 -->
           <article>
             <p>Is it okay to use a 'section' inside an 'article'?</p>
@@ -75,7 +75,7 @@
             <legend>Ask a Question</legend>
 
             <label for="new-comment">Your Comment</label>
-            <textarea id="new-comment" required></textarea>
+            <textarea id="new-comment-text" required></textarea>
 
             <button type="submit">Post Comment</button>
           </fieldset>
