@@ -13,6 +13,7 @@
 
 // --- Element Selections ---
 // TODO: Select the section for the assignment list ('#assignment-list-section').
+let assignmentListSection = document.getElementById("assignment-list-section");
 
 // --- Functions ---
 
@@ -24,7 +25,33 @@
  * This is how the detail page will know which assignment to load.
  */
 function createAssignmentArticle(assignment) {
-  // ... your implementation here ...
+  let id = assignment.id;
+  let title = assignment.title;
+  let dueDate = assignment.dueDate;
+  let description = assignment.description;
+
+  let article = document.createElement("article");
+
+  let titleElement = document.createElement("h2");
+  titleElement.textContent = title;
+  article.appendChild(titleElement);
+
+  let dueElement = document.createElement("p");
+  dueElement.textContent = `Due: ${dueDate}`;
+  article.appendChild(dueElement);
+
+  let descriptionElement = document.createElement("p");
+  // Prepend "description: " for consistency with the HTML example
+  descriptionElement.textContent = `description: ${description}`;
+  article.appendChild(descriptionElement);
+
+  let linkElement = document.createElement("a");
+  linkElement.textContent = "View Details & Discussion";
+  linkElement.href = `details.html?id=${id}`;
+  linkElement.target = "_blank";
+  article.appendChild(linkElement);
+
+  return article;
 }
 
 /**
@@ -33,13 +60,38 @@ function createAssignmentArticle(assignment) {
  * It should:
  * 1. Use `fetch()` to get data from 'assignments.json'.
  * 2. Parse the JSON response into an array.
- * 3. Clear any existing content from `listSection`.
+ * 3. Clear any existing content from `assignmentListSection`.
  * 4. Loop through the assignments array. For each assignment:
  * - Call `createAssignmentArticle()`.
- * - Append the returned <article> element to `listSection`.
+ * - Append the returned <article> element to `assignmentListSection`.
  */
 async function loadAssignments() {
   // ... your implementation here ...
+  if (!assignmentListSection) {
+    return;
+  }
+
+  assignmentListSection.innerHTML = "";
+
+  try {
+    var response = await fetch("assignments.json");
+
+    if (!response.ok) {
+      throw new Error("HTTP error! Status: " + response.status);
+    }
+
+    var assignments = await response.json();
+
+    assignments.forEach(function (assignment) {
+      var article = createAssignmentArticle(assignment);
+      assignmentListSection.appendChild(article);
+    });
+  } catch (error) {
+    var p = document.createElement("p");
+    p.className = "error-message";
+    p.textContent = "Error loading assignments. Please try again.";
+    assignmentListSection.appendChild(p);
+  }
 }
 
 // --- Initial Page Load ---
