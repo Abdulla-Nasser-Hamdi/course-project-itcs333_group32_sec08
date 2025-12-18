@@ -40,7 +40,7 @@
 // ============================================================================
 // HEADERS AND CORS CONFIGURATION
 // ============================================================================
-
+session_start(); 
 // TODO: Set Content-Type header to application/json
 header("Content-Type: application/json"); 
 
@@ -54,6 +54,12 @@ header("Access-Control-Allow-Headers: Content-Type");
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(200);
     exit;
+}
+
+if (
+    empty($_SESSION['logged_in'])
+) {
+    sendResponse(['success' => false, 'message' => 'Access denied'], 403);
 }
 
 
@@ -644,6 +650,10 @@ try {
         
         if ($resource === 'assignments') {
             // TODO: Call createAssignment($db, $data)
+            if(empty($_SESSION['is_admin']) || $_SESSION['is_admin'] !== 1) {
+                 sendResponse(['success' => false, 'message' => 'Access denied'], 403)
+            }
+            
             createAssignment($db, $data);
             
         } elseif ($resource === 'comments') {
@@ -660,6 +670,9 @@ try {
         // TODO: Handle PUT requests (update operations)
         
         if ($resource === 'assignments') {
+            if(empty($_SESSION['is_admin']) || $_SESSION['is_admin'] !== 1) {
+                 sendResponse(['success' => false, 'message' => 'Access denied'], 403)
+            }
             // TODO: Call updateAssignment($db, $data)
             updateAssignment($db, $data);
             
@@ -673,6 +686,9 @@ try {
         // TODO: Handle DELETE requests
         
         if ($resource === 'assignments') {
+            if(empty($_SESSION['is_admin']) || $_SESSION['is_admin'] !== 1) {
+                 sendResponse(['success' => false, 'message' => 'Access denied'], 403)
+            }
             // TODO: Get 'id' from query parameter or request body
             deleteAssignment($db, $_GET['id'] ?? null);
             
