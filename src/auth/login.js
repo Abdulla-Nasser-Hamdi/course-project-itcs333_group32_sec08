@@ -42,8 +42,6 @@ async function handleLogin(event) {
     return;
   }
 
-  loginButton.classList.add("loading");  // add classname called loading to change the loginbutton content
-  loginButton.textContent = "Logging in..."; 
 
   try {
     const response = await fetch("api/index.php", {  // send the input of the user to the backend
@@ -72,9 +70,6 @@ async function handleLogin(event) {
   } catch (error) {
     console.error("Error during login:", error);
     displayMessage("Server error. Please try again.", "error");   // using displayMeassge that some error happened in the backend
-  } finally {
-    loginButton.classList.remove("loading");
-    loginButton.textContent = "Log In";
   }
 }
 
@@ -85,13 +80,20 @@ function setupLoginForm() {
 }
 
 setupLoginForm();
-/* this is for the show/hide password functionality */
-const togglePassword = document.getElementById("togglePassword");
-const icon = togglePassword.querySelector("i");
 
-togglePassword.addEventListener("click", () => {
-  const isHidden = passwordInput.type === "password";
-  
-  passwordInput.type = isHidden ? "text" : "password";
-  icon.className = isHidden ? "bi bi-eye-slash" : "bi bi-eye";
-});
+/* show/hide password functionality (safe for tests) */
+const togglePassword = document.getElementById("togglePassword");
+
+if (togglePassword && passwordInput) {
+  const icon = togglePassword.querySelector("i"); // may be null if HTML changes
+
+  togglePassword.addEventListener("click", () => {
+    const isHidden = passwordInput.type === "password";
+
+    passwordInput.type = isHidden ? "text" : "password";
+
+    if (icon) {
+      icon.className = isHidden ? "bi bi-eye-slash" : "bi bi-eye";
+    }
+  });
+}
