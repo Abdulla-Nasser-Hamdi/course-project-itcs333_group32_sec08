@@ -43,21 +43,23 @@ function createAssignmentRow(assignment) {
 
   let tbROW = document.createElement("tr");
   let titleTD = document.createElement("td");
+  titleTD.textContent = title;
   let dueDateTD = document.createElement("td");
+  dueDateTD.textContent = dueDate;
   let actionsTD = document.createElement("td");
 
-  let editBTN = document.createElement("button");
+  let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
   editBtn.className = "edit-btn";
   editBtn.dataset.id = id;
 
-  let deleteBTN = document.createElement("button");
+  let deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
   deleteBtn.className = "delete-btn";
   deleteBtn.dataset.id = id;
 
-  actionsTD.appendChild(editBTN);
-  actionsTD.appendChild(deleteBTN);
+  actionsTD.appendChild(editBtn);
+  actionsTD.appendChild(deleteBtn);
 
   tbROW.appendChild(titleTD);
   tbROW.appendChild(dueDateTD);
@@ -96,21 +98,24 @@ function renderTable() {
 async function handleAddAssignment(event) {
   // ... your implementation here ...
 
+  event.preventDefault();
+
   let titleINP = document.getElementById("assignment-title").value;
   let descriptionINP = document.getElementById("assignment-description").value;
   let dueINP = document.getElementById("assignment-due-date").value;
   let filesINP = document.getElementById("assignment-files").value;
 
   let newAssignment = {
+    id: `asg_${Date.now()}`,
     title: titleINP,
     description: descriptionINP,
     dueDate: dueINP,
     files: filesINP,
   };
 
-  assignment.push(newAssignment);
+  assignments.push(newAssignment);
   renderTable();
-  form.reset();
+  assignmentForm.reset();
 }
 
 /**
@@ -125,6 +130,11 @@ async function handleAddAssignment(event) {
  */
 function handleTableClick(event) {
   // ... your implementation here ...
+  if (event.target.classList.contains("delete-btn")) {
+    const id = event.target.dataset.id;
+    assignments = assignments.filter((a) => a.id !== id);
+    renderTable();
+  }
 }
 
 /**
@@ -139,11 +149,18 @@ function handleTableClick(event) {
  */
 async function loadAndInitialize() {
   // ... your implementation here ...
-  let form = document.getElementById("assignment-form");
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    handleAddAssignment();
-  });
+
+  try {
+    const response = await fetch("assignments.json");
+    assignments = await response.json();
+  } catch (error) {
+    assignments = []; // fallback
+  }
+
+  renderTable();
+
+  assignmentForm.addEventListener("submit", handleAddAssignment);
+  assignmentsTbody.addEventListener("click", handleTableClick);
 }
 
 // --- Initial Page Load ---
