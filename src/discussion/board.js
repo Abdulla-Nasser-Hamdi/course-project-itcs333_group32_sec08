@@ -1,102 +1,153 @@
-/*
-  Requirement: Make the "Discussion Board" page interactive.
-
-  Instructions:
-  1. Link this file to `board.html` (or `baord.html`) using:
-     <script src="board.js" defer></script>
-  
-  2. In `board.html`, add an `id="topic-list-container"` to the 'div'
-     that holds the list of topic articles.
-  
-  3. Implement the TODOs below.
-*/
-
-// --- Global Data Store ---
-// This will hold the topics loaded from the JSON file.
+// --- Global State ---
 let topics = [];
 
+// --- API URL ---
+const API_URL = './api/index.php?resource=topics';
+
 // --- Element Selections ---
-// TODO: Select the new topic form ('#new-topic-form').
+const newTopicForm = document.querySelector('#new-topic-form');
+const topicListContainer = document.querySelector('#topic-list-container');
+const searchInput = document.getElementById("search-input");
+const filterSelect = document.getElementById("filter-select");
+const orderBtn = document.getElementById("order-btn");
+let sortAsc = true;
+let timer;
 
-// TODO: Select the topic list container ('#topic-list-container').
-
-// --- Functions ---
+// --- Helper Functions ---
 
 /**
- * TODO: Implement the createTopicArticle function.
- * It takes one topic object {id, subject, author, date}.
- * It should return an <article> element matching the structure in `board.html`.
- * - The main link's `href` MUST be `topic.html?id=${id}`.
- * - The footer should contain the author and date.
- * - The actions div should contain an "Edit" button and a "Delete" button.
- * - The "Delete" button should have a class "delete-btn" and `data-id="${id}"`.
+ * Fetch topics from API with optional search, sorting, and order
+ */
+async function fetchTopics(search = '', sort = 'created_at', order = 'desc') {
+    try {
+        const url = `${API_URL}&search=${encodeURIComponent(search)}&sort=${sort}&order=${order}`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch topics');
+        const result = await response.json();
+        topics = result.data || [];
+        renderTopics();
+    } catch (error) {
+        console.error("Error fetching topics:", error);
+        topicListContainer.innerHTML = "<p>Error loading topics.</p>";
+    }
+}
+
+/**
+ * Create single topic article element
  */
 function createTopicArticle(topic) {
-  // ... your implementation here ...
+    const article = document.createElement('article');
+
+    // Topic title with link
+    const h3 = document.createElement('h3');
+    const link = document.createElement('a');
+    link.href = `topic.html?id=${topic.id}`;
+    link.textContent = topic.subject;
+    h3.appendChild(link);
+    article.appendChild(h3);
+
+    // Footer info
+    const footer = document.createElement('footer');
+    footer.textContent = `Posted by: ${topic.author} on ${topic.created_at}`;
+    article.appendChild(footer);
+
+    // Actions (Edit/Delete)
+    const actionsDiv = document.createElement('div');
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = "Delete";
+    deleteBtn.className = "contrast delete-btn";
+    deleteBtn.dataset.id = topic.id;
+    actionsDiv.appendChild(deleteBtn);
+
+    article.appendChild(actionsDiv);
+    return article;
 }
 
 /**
- * TODO: Implement the renderTopics function.
- * It should:
- * 1. Clear the `topicListContainer`.
- * 2. Loop through the global `topics` array.
- * 3. For each topic, call `createTopicArticle()`, and
- * append the resulting <article> to `topicListContainer`.
+ * Render all topics in the container
  */
 function renderTopics() {
-  // ... your implementation here ...
+    topicListContainer.innerHTML = "";
+    if (topics.length === 0) {
+        topicListContainer.innerHTML = "<p>No topics found.</p>";
+        return;
+    }
+    topics.forEach(topic => topicListContainer.appendChild(createTopicArticle(topic)));
 }
 
 /**
- * TODO: Implement the handleCreateTopic function.
- * This is the event handler for the form's 'submit' event.
- * It should:
- * 1. Prevent the form's default submission.
- * 2. Get the values from the '#topic-subject' and '#topic-message' inputs.
- * 3. Create a new topic object with the structure:
- * {
- * id: `topic_${Date.now()}`,
- * subject: (subject value),
- * message: (message value),
- * author: 'Student' (use a hardcoded author for this exercise),
- * date: new Date().toISOString().split('T')[0] // Gets today's date YYYY-MM-DD
- * }
- * 4. Add this new topic object to the global `topics` array (in-memory only).
- * 5. Call `renderTopics()` to refresh the list.
- * 6. Reset the form.
+ * Handle form submission to create new topic
  */
-function handleCreateTopic(event) {
-  // ... your implementation here ...
+async function handleCreateTopic(event) {
+    event.preventDefault();
+    const subject = document.querySelector('#topic-subject').value.trim();
+    const message = document.querySelector('#topic-message').value.trim();
+    if (!subject || !message) return;
+
+    const newTopic = { subject, message, author: "Student" };
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newTopic)
+        });
+        if (!response.ok) throw new Error('Failed to create topic');
+        fetchTopics();
+        newTopicForm.reset();
+    } catch (error) {
+        console.error("Error creating topic:", error);
+    }
 }
 
 /**
- * TODO: Implement the handleTopicListClick function.
- * This is an event listener on the `topicListContainer` (for delegation).
- * It should:
- * 1. Check if the clicked element (`event.target`) has the class "delete-btn".
- * 2. If it does, get the `data-id` attribute from the button.
- * 3. Update the global `topics` array by filtering out the topic
- * with the matching ID (in-memory only).
- * 4. Call `renderTopics()` to refresh the list.
+ * Handle clicks in topic list (delete button)
  */
-function handleTopicListClick(event) {
-  // ... your implementation here ...
+async function handleTopicListClick(event) {
+    if (event.target.classList.contains('delete-btn')) {
+        const topicId = event.target.dataset.id;
+        try {
+            const response = await fetch(`${API_URL}&id=${topicId}`, { method: 'DELETE' });
+            if (!response.ok) throw new Error('Failed to delete topic');
+            fetchTopics();
+        } catch (error) {
+            console.error("Error deleting topic:", error);
+        }
+    }
 }
 
 /**
- * TODO: Implement the loadAndInitialize function.
- * This function needs to be 'async'.
- * It should:
- * 1. Use `fetch()` to get data from 'topics.json'.
- * 2. Parse the JSON response and store the result in the global `topics` array.
- * 3. Call `renderTopics()` to populate the list for the first time.
- * 4. Add the 'submit' event listener to `newTopicForm` (calls `handleCreateTopic`).
- * 5. Add the 'click' event listener to `topicListContainer` (calls `handleTopicListClick`).
+ * Load topics based on search/filter/order
  */
+function loadFilteredTopics() {
+    const search = searchInput.value.trim();
+    let sort = filterSelect.value;
+    const order = sortAsc ? "asc" : "desc";
+    fetchTopics(search, sort, order);
+}
+
+// --- Initialize App ---
 async function loadAndInitialize() {
-  // ... your implementation here ...
+    // Load topics first
+    await fetchTopics();}
+
+// --- Event Listeners ---
+if (newTopicForm) newTopicForm.addEventListener('submit', handleCreateTopic);
+if (topicListContainer) topicListContainer.addEventListener('click', handleTopicListClick);
+if (searchInput) {
+    searchInput.addEventListener("input", () => {
+        clearTimeout(timer);
+        timer = setTimeout(loadFilteredTopics, 300);
+    });
+}
+if (filterSelect) filterSelect.addEventListener("change", loadFilteredTopics);
+if (orderBtn) {
+    orderBtn.addEventListener("click", () => {
+        sortAsc = !sortAsc;
+        orderBtn.textContent = sortAsc ? "Asc" : "Desc";
+        loadFilteredTopics();
+    });
 }
 
-// --- Initial Page Load ---
-// Call the main async function to start the application.
+// --- Initial Load ---
 loadAndInitialize();
